@@ -3,9 +3,9 @@
 define('SERVER', 'localhost');
 define('USER', 'root');
 define('PASSWORD', '');
-define('DATABASE', 'tienda');
+define('DATABASE', 'blog');
 
-define('BASE_URL', 'http://localhost/blog-videojuegos/');
+define('BASE_URL', 'http://localhost/videogames-blog/');
 
-define('CONTROLLER_DEFAULT', '');
-define('ACTION_DEFAULT', '');
+define('CONTROLLER_DEFAULT', 'UserController');
+define('ACTION_DEFAULT', 'register');

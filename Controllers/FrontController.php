@@ -25,6 +25,7 @@ class FrontController
             }
 
         }else{
+            echo $nombre_controlador;
             echo ErrorController::show_error404();
         }
     }

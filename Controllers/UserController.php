@@ -3,17 +3,18 @@ namespace Controllers;
 use Models\User;
 use Lib\Pages;
 
-class UsuarioController{
+class UserController{
     private Pages $pages;
 
     public function __construct(){
         $this->pages = new Pages();
     }
 
-    public function registro(){
+    public function register(){
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             if($_POST['data']){
                 $registrado = $_POST['data'];
+                
 
                 // Podemos validar aqui si los metodos validar y sanitizar son estaticos
 
@@ -40,6 +41,6 @@ class UsuarioController{
             $_SESSION['register'] = "failed";
         }
 
-        $this->pages->render('Usuario/registro');
+        $this->pages->render('User/User');
     }
 }

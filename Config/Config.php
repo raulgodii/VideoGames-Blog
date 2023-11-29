@@ -1,9 +1,9 @@
 <?php
 
-define('SERVIDOR', 'localhost');
-define('USUARIO', 'root');
+define('SERVER', 'localhost');
+define('USER', 'root');
 define('PASSWORD', '');
-define('BASE_DATOS', 'tienda');
+define('DATABASE', 'tienda');
 
 define('BASE_URL', 'http://localhost/blog-videojuegos/');
 

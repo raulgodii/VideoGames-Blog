@@ -2,7 +2,7 @@
 use Utils\Utils; 
 ?>
 
-<h1>Prueba de registro</h1>
+<h1>Sing Up</h1>
 
 <?php if(isset($_SESSION['register']) && $_SESSION['register'] === 'failed'): ?>
     <p>Ha ocurrido un error con el registro</p>
@@ -34,11 +34,12 @@ use Utils\Utils;
         <input type="password" name="data[password]" required>
     </p>
     <p>
-        <input type="submit">
+        <input type="submit" value="Register">
     </p>
 </form>
 
 <?php elseif(isset($_SESSION['register']) && $_SESSION['register'] === 'complete') : ?>
     <p>Registro completado satisfactoriamente</p>
     <?php Utils::deleteSession('register');?>
+    <?php header("Location:".BASE_URL) ?>
 <?php endif; ?>

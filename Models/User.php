@@ -93,39 +93,4 @@ class User{
 
     }
 
-    public function save(){
-        if($this->getId()){
-            return $this->update();
-        } else {
-            return $this->create();
-        }
-    }
-
-    public function create(): bool {
-        $id = NULL;
-        $name = $this->getname();
-        $last_name = $this->getlast_name();
-        $email = $this->getEmail();
-        $password = $this->getPassword();
-        $date = 'user';
-
-        try{
-            $ins = $this->db->prepare("INSERT INTO users (id, name, last_name, email, password, date) values (:id, :name, :last_name, :email, :password, :date)");
-
-            $ins->bindValue('id', $id);
-            $ins->bindValue('name', $name);
-            $ins->bindValue('last_name', $last_name);
-            $ins->bindValue('email', $email);
-            $ins->bindValue('password', $password);
-            $ins->bindValue('date', $date);
-
-            $ins->execute();
-            
-            $result = true;
-        } catch(PDOException $err){
-            $result = false;
-        }
-
-        return $result;
-    }
 }

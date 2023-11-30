@@ -2,12 +2,16 @@
 namespace Controllers;
 use Models\User;
 use Lib\Pages;
+use Utils\Utils;
+use Repositories\UserRepository;
 
 class UserController{
     private Pages $pages;
+    private UserRepository $userRepository;
 
     public function __construct(){
         $this->pages = new Pages();
+        $this->userRepository = new userRepository();
     }
 
     public function register(){
@@ -20,7 +24,7 @@ class UserController{
 
                 $userReg['password'] = password_hash($userReg['password'], PASSWORD_BCRYPT, ['cost'=>4]);
                 
-                $usuario = User::fromArray($userReg);
+                $user = User::fromArray($userReg);
 
                 // Validar
                 // $errores = $usuario->validar()
@@ -30,7 +34,7 @@ class UserController{
 
                 // Sanear
 
-                $save = $usuario->save();
+                $save = $this->userRepository->registerUser($user);
                 if($save){
                     $_SESSION['register'] = "complete";
                 } else{
@@ -43,5 +47,54 @@ class UserController{
         } 
 
         $this->pages->render('User/Register');
+    }
+
+    public function login(){
+        
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            
+            if($_POST['data']){
+                
+                $login = $_POST['data'];
+                
+
+                // Podemos validar aqui si los metodos validar y sanitizar son estaticos
+
+
+                $userLog = User::fromArray($login);
+
+                $identity = $this->userRepository->login($userLog);
+
+                //$verify = password_verify($password, $usuario->password);
+
+                // Validar
+                // $errores = $usuario->validar()
+                // if(empty($errores)){
+                    //$atributos = $usuario->sanititizar();
+                //}
+
+                // Sanear
+
+                if($identity && is_object($identity)){
+                    $_SESSION['login'] = $identity;
+                } else {
+                    $_SESSION['loginError'] = 'failed';
+                }
+                
+                $this->userRepository->close();
+            }
+            else {
+                
+                $_SESSION['login'] ="failed";
+            }
+        } 
+
+        $this->pages->render('User/Login');
+    }
+
+    public function logout(){
+        Utils::deleteSession('login');
+
+        header("Location:".BASE_URL);
     }
 }

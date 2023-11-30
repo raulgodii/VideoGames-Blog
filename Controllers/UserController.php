@@ -13,14 +13,14 @@ class UserController{
     public function register(){
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             if($_POST['data']){
-                $registrado = $_POST['data'];
+                $userReg = $_POST['data'];
                 
 
                 // Podemos validar aqui si los metodos validar y sanitizar son estaticos
 
-                $registrado['password'] = password_hash($registrado['password'], PASSWORD_BCRYPT, ['cost'=>4]);
-
-                $usuario = User::fromArray($registrado);
+                $userReg['password'] = password_hash($userReg['password'], PASSWORD_BCRYPT, ['cost'=>4]);
+                
+                $usuario = User::fromArray($userReg);
 
                 // Validar
                 // $errores = $usuario->validar()
@@ -36,11 +36,12 @@ class UserController{
                 } else{
                     $_SESSION['register'] = "failed";
                 }
+            }else {
+                
+                $_SESSION['register'] = "failed";
             }
-        } else {
-            $_SESSION['register'] = "failed";
-        }
+        } 
 
-        $this->pages->render('User/User');
+        $this->pages->render('User/Register');
     }
 }

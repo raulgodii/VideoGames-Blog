@@ -12,11 +12,11 @@ class User{
     private string $last_name;
     private string $email;
     private string $password;
-    private DateTime $date;
+    private string $date;
 
     private DataBase $db;
 
-    public function __construct(string|null $id, string $name, string $last_name, string $email, string $password, DateTime $date){
+    public function __construct(string|null $id, string $name, string $last_name, string $email, string $password, string $date){
         $this->db = new DataBase();
         $this->id = $id;
         $this->name = $name;
@@ -46,7 +46,7 @@ class User{
         return $this->password;
     }
 
-    public function getDate(): DateTime {
+    public function getDate(): string {
         return $this->date;
     }
 
@@ -70,7 +70,7 @@ class User{
         $this->password = $password;
     }
 
-    public function setDate(DateTime $date): void {
+    public function setDate(string $date): void {
         $this->date = $date;
     }
 

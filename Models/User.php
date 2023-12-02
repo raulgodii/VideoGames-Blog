@@ -14,10 +14,7 @@ class User{
     private string $password;
     private string $date;
 
-    private DataBase $db;
-
     public function __construct(string|null $id, string $name, string $last_name, string $email, string $password, string $date){
-        $this->db = new DataBase();
         $this->id = $id;
         $this->name = $name;
         $this->last_name = $last_name;

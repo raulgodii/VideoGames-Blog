@@ -24,9 +24,18 @@ class CategoryController{
     public function saveCategory():void {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $newCategory = $_POST['newCategory'];
-            $this->Category->saveCategory($newCategory);
+
+            if($this->Category->validCategory($newCategory)){
+                $this->Category = new Category();
+                $newCategory = $this->Category->sanitizeCategory($newCategory);
+                $this->Category->saveCategory($newCategory);
+                $this->pages->render("Category/manageCategories");
+            } else {
+                $this->pages->render("Category/manageCategories", ["errorCategory" => true]);
+            }
+        } else {
+            $this->pages->render("Category/manageCategories");
         }
-        $this->pages->render("Category/manageCategories");
     }
 
     public function deleteCategory(): void {

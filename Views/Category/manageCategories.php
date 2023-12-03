@@ -29,6 +29,12 @@
     <?php endif; ?>
 </table>
 
+
+<?php if(isset($errorCategory)): ?>
+    <p>There was an error while inserting the category</p>
+<?php endif; ?>
+
+
 <form action="<?=BASE_URL?>Category/saveCategory/" method="POST">
     <label for="newCategory">Add New Categorie: </label>
     <input type="text" name="newCategory" id="newCategory">

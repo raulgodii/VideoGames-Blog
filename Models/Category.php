@@ -41,4 +41,42 @@ class Category {
     public function deleteCategory($categorie){
         $this->CategoryRepository->deleteCategory($categorie);
     }
+
+    public function validCategory($newCategory){
+        // No empty and Is a string
+        if (empty($newCategory) || !is_string($newCategory)) {
+            return false;
+        }
+
+        $trimmedCategory = trim($newCategory);
+
+        // Valid Length
+        $minLength = 3;
+        $maxLength = 20;
+        if (strlen($trimmedCategory) < $minLength || strlen($trimmedCategory) > $maxLength) {
+            return false; 
+        }
+
+        // Valid Characters
+        if (preg_match('/[\'";]/', $trimmedCategory)) {
+            return false;
+        }
+
+        // Category already exists
+        $array = $this->getAll();
+        foreach ($array as $item) {
+            if ($item["name"] === $newCategory) {
+                return false;
+            }
+        }
+
+        return true;  // Valid Category
+    }
+
+    public function sanitizeCategory($newCategory){
+        $sanitizedCategory = htmlspecialchars($newCategory, ENT_QUOTES, 'UTF-8');
+        $sanitizedCategory = filter_var($newCategory, FILTER_SANITIZE_SPECIAL_CHARS);
+
+        return $sanitizedCategory;
+    }
 }

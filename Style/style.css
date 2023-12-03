@@ -34,7 +34,7 @@ header div{
 }
 
 .header-top{
-    padding: 0px 20px;
+    padding: 0px 10%;
 }
 
 .header-top, footer{
@@ -55,16 +55,29 @@ header div{
 }
 
 .header-top li>a{
+    text-decoration: none;
     color: white;
     margin: 10px;
     font-size: 1.5em;
     transition: 0.3s;
 }
 
-.header-top li>a:hover{
-    color: rgb(180, 180, 180);
-    display: inline-block;
+.header-top li i{
+    font-size: 0.8em;
+    color: white;
+    transition: 0.3s;
+}
+
+.header-top li{
+    transition: 0.3s;
+}
+
+.header-top li:hover{
     transform: scale(1.1);
+}
+
+.header-top li:hover a, .header-top li:hover i{
+    color: rgb(180, 180, 180);
 }
 
 footer{
@@ -75,4 +88,33 @@ footer{
 
 footer span{
     color: var(--color2);
+}
+
+.header-bottom{
+    background-color: var(--color2);
+    padding: 10px;
+    font-family: Bebas Neue;
+}
+
+.header-bottom a{
+    color: white;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: 0.3s;
+}
+
+.header-bottom li{
+    transition: 0.3s;
+}
+
+.header-bottom li:hover{
+    transform: scale(1.1);
+}
+
+.header-bottom a:hover{
+    color: rgb(255, 152, 152);
+}
+
+#logout{
+    font-size: 0.9em;
 }

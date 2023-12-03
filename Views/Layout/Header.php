@@ -11,6 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?=BASE_URL?>Style/style.css">
+    <script src="https://kit.fontawesome.com/8fd2dbd2a5.js" crossorigin="anonymous"></script>
     <title>VideoGames - Blog</title>
 </head>
 <body>
@@ -22,8 +23,9 @@
                     <li><a href="<?=BASE_URL?>User/Login/">Log in</a></li>
                     <li><a href="<?=BASE_URL?>User/Register/">Sing Up</a></li>
                 <?php else: ?>
-                    <li><a href="<?=BASE_URL?>User/logout/">Log Out</a></li>
+                    
                     <li><a href="<?=BASE_URL?>Category/manageCategories/">Manage Categories</a></li>
+                    <li><a id="logout" href="<?=BASE_URL?>User/logout/">Log Out <i class="fa-solid fa-arrow-right-from-bracket"></i></a>  </li>
                 <?php endif; ?>
             </ul>
         </div>

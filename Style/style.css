@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
 
 *{
     padding: 0;
@@ -117,4 +118,101 @@ footer span{
 
 #logout{
     font-size: 0.9em;
+}
+
+main{
+    padding: 30px 10%;
+    font-family: Bebas Neue;
+}
+
+main h1{
+    color: var(--color2);
+    font-family: Bebas Neue;
+    margin: 20px 0;
+}
+
+main label, main input{
+    display: block;
+}
+
+main input{
+    font-family: Prompt;
+    width: 100%;
+    padding: 2px 10px;
+    margin-bottom: 15px;
+    border: 2px solid black;
+    border-top: none;
+    outline-color: none;
+    border-right: none;
+    outline: none;
+    transition: 0.5s;
+}
+
+main form{
+    max-width: 50%;
+    margin: auto;
+}
+
+main input:focus, main input:active{
+    background-color: rgba(212, 212, 212, 0.292);
+    transform: scale(1.05);
+}
+
+main input[type="submit"]{
+    background-color: var(--color1);
+    color: white;
+    border: none;
+    transition: 0.3s;
+    font-size: 1.1em;
+    word-spacing: 2px;
+    max-width: 50%;
+    margin: auto;
+    font-family: Bebas Neue;
+}
+
+main form input[type="submit"]:hover{
+    background-color: #6f6f6f;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transform: scale(1.1);
+}
+
+.errorMessage, .successMessage{
+    color: white;
+    background-color: var(--color2);
+    padding: 20px 5px;
+    max-width: 60%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.successMessage{
+    background-color: rgb(0, 108, 0);
+}
+
+.tableCategories{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tableCategories table{
+    width: 50%;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.tableCategories th{
+    background-color: var(--color1);
+    color: white;
+}
+
+.tableCategories th, .tableCategories td{
+    padding: 5px;
+}
+
+.tableCategories input[type = "submit"]:hover{
+    background-color: #6f6f6f;
+    cursor: pointer;
+    transform: scale(1.1);
 }

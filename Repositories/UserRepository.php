@@ -115,10 +115,8 @@ class UserRepository
                 $result = $usuario;
             }else{
                 $result = false;
-                echo "contraseña incorrecta del usuario: ", $usuario->nombre;
             }
         }else{
-            echo "usuario no registrado";
             $result = false;
         }
         return $result;

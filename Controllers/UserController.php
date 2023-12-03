@@ -78,14 +78,14 @@ class UserController{
                 if($identity && is_object($identity)){
                     $_SESSION['login'] = $identity;
                 } else {
-                    $_SESSION['loginError'] = 'failed';
+                    $this->userRepository->close();
+                    $this->pages->render("User/Login", ["errorLogin" => true]);
                 }
                 
                 $this->userRepository->close();
             }
             else {
-                
-                $_SESSION['login'] ="failed";
+                $this->pages->render("User/Login", ["errorLogin" => true]);
             }
         } 
 

@@ -11,31 +11,38 @@
 <h1>Manage Categories</h1>
 
 
-
-<table>
-    <?php if(count($categories) == 0):?>
-        <p>There are not categories yet</p>
-    <?php else:?>
-        <?php foreach($categories as $categorie): ?>
+<div class="tableCategories">
+    <table >
+        <?php if(count($categories) == 0):?>
+            <p style="margin: 20px">There are not categories yet.</p>
+        <?php else:?>
             <tr>
-                <td><?=$categorie['id']?></td>
-                <td><?=$categorie['name']?></td>
-                <form action="<?=BASE_URL?>Category/deleteCategory/" method="POST">
-                    <input type="hidden" name="deleteCategory" value="<?=$categorie['id']?>">
-                    <td><input type="submit" value="Delete"></td>
-                </form>
+                <th>ID</th>
+                <th>CATEGORY</th>
+                <th></th>
             </tr>
-        <?php endforeach; ?>
-    <?php endif; ?>
-</table>
+            <?php foreach($categories as $categorie): ?>
+                <tr>
+                    <td><?=$categorie['id']?></td>
+                    <td><?=$categorie['name']?></td>
+                    <form action="<?=BASE_URL?>Category/deleteCategory/" method="POST">
+                        <input type="hidden" name="deleteCategory" value="<?=$categorie['id']?>">
+                        <td><input type="submit" value="Delete"></td>
+                    </form>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </table>
+</div>
+
 
 
 <?php if(isset($errorCategory)): ?>
-    <p>There was an error while inserting the category</p>
+    <p class="errorMessage">There was an error while inserting the category</p>
 <?php endif; ?>
 
 
-<form action="<?=BASE_URL?>Category/saveCategory/" method="POST">
+<form class="addCategorieForm" action="<?=BASE_URL?>Category/saveCategory/" method="POST">
     <label for="newCategory">Add New Categorie: </label>
     <input type="text" name="newCategory" id="newCategory">
     <input type="submit" value="Add">

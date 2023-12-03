@@ -20,7 +20,7 @@ use Utils\Utils;
 <form action="<?=BASE_URL?>User/register/" method="POST">
     <p>
         <label>Name</label>
-        <input type="text" name="data[name]" placeholder="Introduce your name" required>
+        <input type="text" name="data[name]" placeholder="Introduce your name" value="<?php ?>" required>
     </p>
     <p>
         <label>Last Name</label>

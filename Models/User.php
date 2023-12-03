@@ -82,12 +82,32 @@ class User{
         );
     }
 
-    public function validar(){
-
+    public static function validSanitizeUser($data) {
+        // Rules of validation
+        $rules = array(
+            'name' => array('filter' => FILTER_VALIDATE_REGEXP, 'options' => array('regexp' => '/^[a-zA-Z]+$/')),
+            'last_name' => array('filter' => FILTER_VALIDATE_REGEXP, 'options' => array('regexp' => '/^[a-zA-Z]+$/')),
+            'email' => FILTER_VALIDATE_EMAIL,
+            'date' => array('filter' => FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+            'password' => array('filter' => FILTER_SANITIZE_FULL_SPECIAL_CHARS)
+        );
+    
+        $validData = filter_var_array($data, $rules);
+    
+        // Valid date format
+        if (isset($validData['date']) && !self::validDateFormat($validData['date'])) {
+            return false;
+        }
+    
+        // Return valid and sanitize data
+        return $validData;
     }
-
-    public function sanititizar(){
-
+    
+    // Valid Format Date (DD/MM/AAAA)
+    public static function validDateFormat($date) {
+        $pattern = "/^\d{2}\/\d{2}\/\d{4}$/";
+        return preg_match($pattern, $date);
     }
+    
 
 }

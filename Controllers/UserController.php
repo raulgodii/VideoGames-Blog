@@ -19,24 +19,19 @@ class UserController{
             if($_POST['data']){
                 $userReg = $_POST['data'];
                 
+                var_dump($userReg);
 
-                // Podemos validar aqui si los metodos validar y sanitizar son estaticos
-
-                $userReg['password'] = password_hash($userReg['password'], PASSWORD_BCRYPT, ['cost'=>4]);
+                if(User::validSanitizeUser($userReg)){
+                    $userReg['password'] = password_hash($userReg['password'], PASSWORD_BCRYPT, ['cost'=>4]);
                 
-                $user = User::fromArray($userReg);
-
-                // Validar
-                // $errores = $usuario->validar()
-                // if(empty($errores)){
-                    //$atributos = $usuario->sanititizar();
-                //}
-
-                // Sanear
-
-                $save = $this->userRepository->registerUser($user);
-                if($save){
-                    $_SESSION['register'] = "complete";
+                    $user = User::fromArray($userReg);
+    
+                    $save = $this->userRepository->registerUser($user);
+                    if($save){
+                        $_SESSION['register'] = "complete";
+                    } else{
+                        $_SESSION['register'] = "failed";
+                    }
                 } else{
                     $_SESSION['register'] = "failed";
                 }

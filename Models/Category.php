@@ -37,4 +37,8 @@ class Category {
     public function saveCategory($newCategory):void{
         $this->CategoryRepository->saveCategory($newCategory);
     }
+
+    public function deleteCategory($categorie){
+        $this->CategoryRepository->deleteCategory($categorie);
+    }
 }

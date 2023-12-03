@@ -1,3 +1,10 @@
+<?php
+    use Controllers\CategoryController;
+    $CategoryController = new CategoryController();
+
+    $categories = $CategoryController->getAll();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,8 +22,8 @@
                     <li><a href="<?=BASE_URL?>User/Login/">Log in</a></li>
                     <li><a href="<?=BASE_URL?>User/Register/">Sing Up</a></li>
                 <?php else: ?>
-                    <li><h2><?=$_SESSION['login']->name?> <?=$_SESSION['login']->last_name?></h2></li>
                     <li><a href="<?=BASE_URL?>User/logout/">Log Out</a></li>
+                    <li><a href="<?=BASE_URL?>Category/manageCategories/">Manage Categories</a></li>
                 <?php endif; ?>
             </ul>
         </div>
@@ -24,11 +31,12 @@
             <nav>
                 <ul>
                     <li><a href="">Home</a></li>
-                    <li><a href="">Action</a></li>
-                    <li><a href="">Rol</a></li>
-                    <li><a href="">Sports</a></li>
+                    <?php foreach($categories as $categorie): ?>
+                        <li>
+                            <a href=""><?=$categorie['name']?></a>
+                        </li>
+                    <?php endforeach; ?>
                     <li><a href="">Contact</a></li>
-                    <li><a href="<?=BASE_URL?>Category/manageCategories/">Probar Categorias</a></li>
                 </ul>
             </nav>
         </div>

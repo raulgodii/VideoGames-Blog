@@ -5,6 +5,9 @@
     $categories = $CategoryController->getAll();
 ?>
 
+    
+
+
 <h1>Manage Categories</h1>
 
 
@@ -17,6 +20,10 @@
             <tr>
                 <td><?=$categorie['id']?></td>
                 <td><?=$categorie['name']?></td>
+                <form action="<?=BASE_URL?>Category/deleteCategory/" method="POST">
+                    <input type="hidden" name="deleteCategory" value="<?=$categorie['id']?>">
+                    <td><input type="submit" value="Delete"></td>
+                </form>
             </tr>
         <?php endforeach; ?>
     <?php endif; ?>

@@ -25,4 +25,9 @@ class CategoryRepository
         $this->connection->query("INSERT INTO categories (name) VALUES (\"$newCategory\")");
         $this->connection->close();
     }
+
+    public function deleteCategory($categorieID){
+        $this->connection->query("DELETE FROM categories WHERE id = $categorieID");
+        $this->connection->close();
+    }
 }

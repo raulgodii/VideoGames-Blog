@@ -28,4 +28,12 @@ class CategoryController{
         }
         $this->pages->render("Category/manageCategories");
     }
+
+    public function deleteCategory(): void {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $deleteCategory = $_POST['deleteCategory'];
+            $this->Category->deleteCategory($deleteCategory);
+        }
+        $this->pages->render("Category/manageCategories");
+    }
 }

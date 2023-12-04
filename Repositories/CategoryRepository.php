@@ -26,8 +26,13 @@ class CategoryRepository
         $this->connection->close();
     }
 
-    public function deleteCategory($categorieID){
-        $this->connection->query("DELETE FROM categories WHERE id = $categorieID");
+    public function deleteCategory($idCategory){
+        $this->connection->query("DELETE FROM categories WHERE id = $idCategory");
+        $this->connection->close();
+    }
+
+    public function editCategory($idCategory, $nameCategory){
+        $this->connection->query("UPDATE categories SET name='$nameCategory' WHERE id=$idCategory");
         $this->connection->close();
     }
 }

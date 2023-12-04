@@ -23,12 +23,32 @@
             </tr>
             <?php foreach($categories as $categorie): ?>
                 <tr>
-                    <td><?=$categorie['id']?></td>
-                    <td><?=$categorie['name']?></td>
-                    <form action="<?=BASE_URL?>Category/deleteCategory/" method="POST">
-                        <input type="hidden" name="deleteCategory" value="<?=$categorie['id']?>">
-                        <td><input type="submit" value="Delete"></td>
-                    </form>
+                    <?php if(isset($idCategoryEdit) && $idCategoryEdit==$categorie['id']):?>
+                        <form action="<?=BASE_URL?>Category/editedCategory/" method="POST">
+                            <input type="hidden" name="idCategory" value="<?=$categorie['id']?>">
+                            <td><?=$categorie['id']?></td>
+                            <td>
+                                <input type="hidden" name="idCategory" value="<?=$categorie['id']?>">
+                                <input type="text" name="nameCategory" value="<?=$categorie['name']?>">
+                            </td>
+                            <td>
+                                <input type="submit" value="Confirm">
+                            </td>
+                        </form>
+                    <?php else: ?>
+                        <td><?=$categorie['id']?></td>
+                        <td><?=$categorie['name']?></td>
+                        <td>
+                            <form action="<?=BASE_URL?>Category/editCategory/" method="POST">
+                                <input type="hidden" name="idCategory" value="<?=$categorie['id']?>">
+                                <input type="submit" value="Edit">
+                            </form>
+                            <form action="<?=BASE_URL?>Category/deleteCategory/" method="POST">
+                                <input type="hidden" name="idCategory" value="<?=$categorie['id']?>">
+                                <input type="submit" value="Delete">
+                            </form>
+                        </td>
+                    <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
         <?php endif; ?>

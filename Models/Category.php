@@ -38,8 +38,12 @@ class Category {
         $this->CategoryRepository->saveCategory($newCategory);
     }
 
-    public function deleteCategory($categorie){
-        $this->CategoryRepository->deleteCategory($categorie);
+    public function deleteCategory($idCategory){
+        $this->CategoryRepository->deleteCategory($idCategory);
+    }
+
+    public function editCategory($idCategory, $nameCategory){
+        $this->CategoryRepository->editCategory($idCategory, $nameCategory);
     }
 
     public function validCategory($newCategory){

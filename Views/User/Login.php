@@ -9,7 +9,8 @@
 
 <form action="<?=BASE_URL?>User/login/" method="POST">
     <label for="email">Email</label>
-    <input type="email" name="data[email]" id="email" placeholder="Introduce your email" required/>
+    <input type="email" name="data[email]" id="email" placeholder="Introduce your email" value="<?= isset($email) ? htmlspecialchars($email) : '' ?>" required/>
+
 
     <label for="password">Password</label>
     <input type="password" name="data[password]" id="password" placeholder="Introduce your password" required/>

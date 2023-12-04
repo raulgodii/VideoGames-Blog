@@ -34,12 +34,16 @@ class UserController{
                     $_SESSION['register'] = "failed";
                 }
             }else {
-                
                 $_SESSION['register'] = "failed";
             }
         } 
 
-        $this->pages->render('User/Register');
+        if(isset($userReg)){
+            $this->pages->render('User/Register', ['user' => $userReg]);
+        } else {
+            $this->pages->render('User/Register');
+        }
+        
     }
 
     public function login(){
@@ -72,7 +76,7 @@ class UserController{
                     $_SESSION['login'] = $identity;
                 } else {
                     $this->userRepository->close();
-                    $this->pages->render("User/Login", ["errorLogin" => true]);
+                    $this->pages->render("User/Login", ["errorLogin" => true, "email"=>$userLog->getEmail()]);
                 }
                 
                 $this->userRepository->close();

@@ -40,9 +40,25 @@ class CategoryController{
 
     public function deleteCategory(): void {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $deleteCategory = $_POST['deleteCategory'];
-            $this->Category->deleteCategory($deleteCategory);
+            $idCategory = $_POST['idCategory'];
+            $this->Category->deleteCategory($idCategory);
+            $this->pages->render("Category/manageCategories");
         }
-        $this->pages->render("Category/manageCategories");
+    }
+
+    public function editCategory(): void {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $idCategory = $_POST['idCategory'];
+            $this->pages->render("Category/manageCategories", ["idCategoryEdit" => $idCategory]);
+        }
+    }
+
+    public function editedCategory(): void {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $idCategory = $_POST['idCategory'];
+            $nameCategory = $_POST['nameCategory'];
+            $this->Category->editCategory($idCategory, $nameCategory);
+            $this->pages->render("Category/manageCategories");
+        }
     }
 }

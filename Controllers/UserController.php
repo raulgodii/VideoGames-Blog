@@ -18,8 +18,6 @@ class UserController{
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             if($_POST['data']){
                 $userReg = $_POST['data'];
-                
-                var_dump($userReg);
 
                 if(User::validSanitizeUser($userReg)){
                     $userReg['password'] = password_hash($userReg['password'], PASSWORD_BCRYPT, ['cost'=>4]);

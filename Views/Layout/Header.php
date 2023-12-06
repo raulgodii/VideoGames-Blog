@@ -26,6 +26,7 @@
                     <?php if($_SESSION['login']->email === "admin@admin.com"): ?>
                         <li><a href="<?=BASE_URL?>Category/manageCategories/">Manage Categories</a></li>
                     <?php endif; ?>
+                    <li><a href="<?=BASE_URL?>Entry/manageEntries/">Manage Entries</a></li>
                     <li><a id="logout" href="<?=BASE_URL?>User/logout/">Log Out <i class="fa-solid fa-arrow-right-from-bracket"></i></a>  </li>
                 <?php endif; ?>
             </ul>

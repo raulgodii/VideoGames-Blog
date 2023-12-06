@@ -2,7 +2,6 @@
 namespace Controllers;
 use Models\Category;
 use Lib\Pages;
-use Utils\Utils;
 
 class CategoryController{
     private Pages $pages;
@@ -57,8 +56,21 @@ class CategoryController{
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $idCategory = $_POST['idCategory'];
             $nameCategory = $_POST['nameCategory'];
-            $this->Category->editCategory($idCategory, $nameCategory);
-            $this->pages->render("Category/manageCategories");
+
+            if($this->Category->validCategory($nameCategory)){
+                $this->Category = new Category();
+                $newCategory = $this->Category->sanitizeCategory($nameCategory);
+                $this->Category->editCategory($idCategory, $nameCategory);
+                $this->pages->render("Category/manageCategories");
+            } else {
+                $this->pages->render("Category/manageCategories", ["errorCategory" => true]);
+            }
         }
+    }
+
+    public function getCategoryFromId($category_id){
+        $this->Category = new Category();
+        $category = $this->Category->getCategoryFromId($category_id);
+        return $category[0]["name"];
     }
 }

@@ -83,4 +83,8 @@ class Category {
 
         return $sanitizedCategory;
     }
+
+    public function getCategoryFromId($category_id){
+        return  $this->CategoryRepository->getCategoryFromId($category_id);
+    }
 }

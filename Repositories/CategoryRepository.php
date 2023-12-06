@@ -35,4 +35,11 @@ class CategoryRepository
         $this->connection->query("UPDATE categories SET name='$nameCategory' WHERE id=$idCategory");
         $this->connection->close();
     }
+
+    public function getCategoryFromId($category_id){
+        $this->connection->query("SELECT name FROM categories WHERE id=$category_id");
+        $category = $this->connection->extractAll();
+        $this->connection->close();
+        return $category;
+    }
 }

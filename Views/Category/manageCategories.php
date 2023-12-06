@@ -63,7 +63,7 @@
 
 
 <form class="addCategorieForm" action="<?=BASE_URL?>Category/saveCategory/" method="POST">
-    <label for="newCategory">Add New Categorie: </label>
+    <label for="newCategory">Add New Category: </label>
     <input type="text" name="newCategory" id="newCategory">
     <input type="submit" value="Add">
 </form>

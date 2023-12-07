@@ -1,15 +1,11 @@
-
-
 <?php
-
-use Controllers\UserController;
-$userController = new UserController();
-
+    use Controllers\UserController;
+    $userController = new UserController();
 ?>
 
 <?php if(isset($entries)) : ?>
 
-    <h1><?=$category_name?></h1>
+    <h1>Last Entries</h1>
 
         <div class="showEntries">
             <div class="entries">
@@ -47,4 +43,6 @@ $userController = new UserController();
                 </ul>
             </div>
         </div>
+        <?php else : ?>
+    <p>afafd</p>
 <?php endif; ?>

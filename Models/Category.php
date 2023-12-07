@@ -91,4 +91,8 @@ class Category {
     public function showEntriesFromCategorie($category_id){
         return $this->CategoryRepository->showEntriesFromCategorie($category_id);
     }
+
+    public function showLastEntries(){
+        return $this->CategoryRepository->showLastEntries();
+    }
 }

@@ -7,5 +7,5 @@ define('DATABASE', 'blog-videogames');
 
 define('BASE_URL', 'http://localhost/videogames-blog/');
 
-define('CONTROLLER_DEFAULT', 'UserController');
-define('ACTION_DEFAULT', 'register');
+define('CONTROLLER_DEFAULT', 'CategoryController');
+define('ACTION_DEFAULT', 'showLastEntries');

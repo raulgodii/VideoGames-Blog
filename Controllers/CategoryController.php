@@ -80,4 +80,9 @@ class CategoryController{
         $entries = $this->Category->showEntriesFromCategorie($category_id);
         $this->pages->render("Category/showEntriesFromCategorie", ["entries" => $entries, "category_name" => $category_name]);
     }
+
+    public function showLastEntries(){
+        $entries = $this->Category->showLastEntries();
+        $this->pages->render("Category/showLastEntries", ["entries" => $entries]);
+    }
 }

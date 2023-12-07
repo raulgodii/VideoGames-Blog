@@ -44,7 +44,14 @@ class CategoryRepository
     }
 
     public function showEntriesFromCategorie($category_id){
-        $this->connection->query("SELECT * FROM entries WHERE category_id=$category_id");
+        $this->connection->query("SELECT * FROM entries WHERE category_id=$category_id ORDER BY id DESC");
+        $entries = $this->connection->extractAll();
+        $this->connection->close();
+        return $entries;
+    }
+
+    public function showLastEntries(){
+        $this->connection->query("SELECT * FROM entries ORDER BY id DESC  LIMIT 5");
         $entries = $this->connection->extractAll();
         $this->connection->close();
         return $entries;

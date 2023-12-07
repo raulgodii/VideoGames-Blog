@@ -34,7 +34,7 @@
         <div class="header-bottom">
             <nav>
                 <ul>
-                    <li><a href="">Home</a></li>
+                    <li><a href="<?=BASE_URL?>">Home</a></li>
                     <?php foreach($categories as $categorie): ?>
                         <li>
                         <a href="<?=BASE_URL?>Category/showEntriesFromCategorie/?category_id=<?=$categorie['id']?>&category_name=<?=$categorie['name']?>"><?=$categorie['name']?></a>

@@ -121,6 +121,23 @@ class UserRepository
         return $result;
     }
 
+    public function updateLogin($user): bool|object {
+        $result = false;
+        $email = $user->getEmail();
+        $password = $user->getPassword();
+
+        $usuario = $this->buscaMail($email);
+
+        if($usuario !== false){
+
+            $result = $usuario;
+
+        }else{
+            $result = false;
+        }
+        return $result;
+    }
+
     public function close():void{
         $this->connection->close();
     }
@@ -131,5 +148,18 @@ class UserRepository
         $user_id = $this->connection->extractAll();
         $this->connection->close();
         return $user_id;
+    }
+
+    public function updateUser($updateUser){
+        $result = true;
+        try{
+            $this->connection->query("UPDATE users SET name='{$updateUser['name']}', last_name='{$updateUser['last_name']}', email='{$updateUser['email']}', date='{$updateUser['date']}' WHERE id='{$updateUser['id']}'");
+            $this->connection->close();
+            
+        } catch(PDOException $err){
+            $result = false;
+        }
+
+        return $result;
     }
 }

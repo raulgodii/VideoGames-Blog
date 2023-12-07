@@ -123,6 +123,7 @@ footer span{
 main{
     padding: 30px 10%;
     font-family: Bebas Neue;
+    flex: 1;
 }
 
 main h1{
@@ -215,10 +216,15 @@ main form input[type="submit"]:hover{
     padding: 5px;
 }
 
-.tableCategories input[type = "submit"]:hover{
+.tableCategories input[type = "submit"]:hover, .tableManageProfile input[type = "submit"]:hover{
     background-color: #6f6f6f;
     cursor: pointer;
     transform: scale(1.1);
+}
+
+.tableManageProfile input[type = "text"]{
+    height: 100%;
+    margin: 0;
 }
 
 /* Estilo para el select */
@@ -389,4 +395,27 @@ body{
 
 #manageUserCheckbox:checked + .manageUser{
     display: block;
+}
+
+.tableManageProfile{
+    font-size: 1.5em;
+    border-collapse: collapse;
+    text-align: left;
+    width: 100%;
+}
+
+.tableManageProfile th, .tableManageProfile td{
+    padding: 10px;
+    border: 2px solid var(--color1);
+    
+}
+
+.tableManageProfile td{
+    width: 70%;
+}
+
+.tableManageProfile th{
+    background-color: var(--color1);
+    color: white;
+    width: 30%;
 }

@@ -53,24 +53,10 @@ class UserController{
             if($_POST['data']){
                 
                 $login = $_POST['data'];
-                
-
-                // Podemos validar aqui si los metodos validar y sanitizar son estaticos
-
 
                 $userLog = User::fromArray($login);
 
                 $identity = $this->userRepository->login($userLog);
-
-                //$verify = password_verify($password, $usuario->password);
-
-                // Validar
-                // $errores = $usuario->validar()
-                // if(empty($errores)){
-                    //$atributos = $usuario->sanititizar();
-                //}
-
-                // Sanear
 
                 if($identity && is_object($identity)){
                     $_SESSION['login'] = $identity;
@@ -100,5 +86,52 @@ class UserController{
         return $this->userRepository->getUserFromId($user_id);
     }
 
-    
+    public function manageProfile(){
+        $this->pages->render("User/ManageProfile");
+    }
+
+    public function editProfile(){
+        $this->pages->render("User/ManageProfile", ["editProfile" => true]);
+    }
+
+    public function updateUser(){
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            
+            if($_POST['updateUser']){
+                
+                $updateUser = $_POST['updateUser'];
+
+                if(User::validSanitizeUser($updateUser)){
+                    $update = $this->userRepository->updateUser($updateUser);
+                    if($update){
+                        $userLog = User::fromArray($updateUser);
+                        
+                        $this->userRepository = new UserRepository();
+
+                        $identity = $this->userRepository->updateLogin($userLog);
+
+                        if($identity && is_object($identity)){
+                            $_SESSION['login'] = $identity;
+                        } else {
+                            $this->userRepository->close();
+                            $this->pages->render("User/ManageProfile", ["errorUpdateUser" => true]);
+                        }
+                    } else{
+                        $this->userRepository->close();
+                        
+                        $this->pages->render("User/ManageProfile", ["errorUpdateUser" => true]);
+                    }
+                } else{
+                    $this->userRepository->close();
+                    $this->pages->render("User/ManageProfile", ["errorUpdateUser" => true]);
+                }
+                
+                $this->userRepository->close();
+            }
+            else {
+                $this->pages->render("User/ManageProfile", ["errorUpdateUser" => true]);
+            }
+        } 
+        $this->pages->render("User/ManageProfile");
+    }
 }

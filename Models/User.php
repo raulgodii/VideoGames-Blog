@@ -1,11 +1,6 @@
 <?php
 namespace Models;
 
-use Lib\DataBase;
-use PDO;
-use PDOException;
-use DateTime;
-
 class User{
     private string|null $id;
     private string $name;
@@ -94,19 +89,8 @@ class User{
     
         $validData = filter_var_array($data, $rules);
     
-        // Valid date format
-        if (isset($validData['date']) && !self::validDateFormat($validData['date'])) {
-            return false;
-        }
-    
         // Return valid and sanitize data
         return $validData;
-    }
-    
-    // Valid Format Date (DD/MM/AAAA)
-    public static function validDateFormat($date) {
-        $pattern = "/^\d{4}-\d{2}-\d{2}$/";
-        return preg_match($pattern, $date);
-    }    
+    } 
 
 }

@@ -17,7 +17,7 @@
 <body>
     <header>
         <div class="header-top">
-            <h1><a href="#">VideoGames - Blog</a></h1>
+            <h1><a href="<?=BASE_URL?>">VideoGames - Blog</a></h1>
             <ul>
                 <?php if(!isset($_SESSION['login'])): ?>
                     <li><a href="<?=BASE_URL?>User/Login/">Log in</a></li>
@@ -32,7 +32,7 @@
                         <input id="manageUserCheckbox" style="display: none;" type="checkbox">
                         <div class="manageUser">
                             <ul>
-                                <li><a id="logout" href="<?=BASE_URL?>User/logout/"> Manage Perfil</a>  </li>
+                                <li><a id="logout" href="<?=BASE_URL?>User/manageProfile/"> Manage Profile</a>  </li>
                                 <li><a id="logout" href="<?=BASE_URL?>User/logout/">Log Out <i class="fa-solid fa-arrow-right-from-bracket"></i></a>  </li>
                             </ul>
                         </div>

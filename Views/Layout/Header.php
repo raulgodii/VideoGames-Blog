@@ -24,10 +24,21 @@
                     <li><a href="<?=BASE_URL?>User/Register/">Sing Up</a></li>
                 <?php else: ?>
                     <?php if($_SESSION['login']->email === "admin@admin.com"): ?>
-                        <li><a href="<?=BASE_URL?>Category/manageCategories/">Manage Categories</a></li>
+                        <li class="manage"><a href="<?=BASE_URL?>Category/manageCategories/">Manage Categories</a></li>
                     <?php endif; ?>
-                    <li><a href="<?=BASE_URL?>Entry/manageEntries/">Manage Entries</a></li>
-                    <li><a id="logout" href="<?=BASE_URL?>User/logout/">Log Out <i class="fa-solid fa-arrow-right-from-bracket"></i></a>  </li>
+                    <li class="manage"><a href="<?=BASE_URL?>Entry/manageEntries/">Manage Entries</a></li>
+                    <li class="manageUserSelect">
+                        <label for="manageUserCheckbox"><?=$_SESSION['login']->name?><i class="fa-solid fa-caret-down"></i></label>
+                        <input id="manageUserCheckbox" style="display: none;" type="checkbox">
+                        <div class="manageUser">
+                            <ul>
+                                <li><a id="logout" href="<?=BASE_URL?>User/logout/"> Manage Perfil</a>  </li>
+                                <li><a id="logout" href="<?=BASE_URL?>User/logout/">Log Out <i class="fa-solid fa-arrow-right-from-bracket"></i></a>  </li>
+                            </ul>
+                        </div>
+                    </li>
+                    
+                    
                 <?php endif; ?>
             </ul>
         </div>

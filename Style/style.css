@@ -327,3 +327,10 @@ main form input[type="submit"]:hover{
 .aside li:hover a {
     color: rgb(164, 0, 0);
 }
+
+body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

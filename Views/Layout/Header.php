@@ -37,8 +37,9 @@
                     <li><a href="">Home</a></li>
                     <?php foreach($categories as $categorie): ?>
                         <li>
-                            <a href=""><?=$categorie['name']?></a>
+                        <a href="<?=BASE_URL?>Category/showEntriesFromCategorie/?category_id=<?=$categorie['id']?>&category_name=<?=$categorie['name']?>"><?=$categorie['name']?></a>
                         </li>
+
                     <?php endforeach; ?>
                     <li><a href="">Contact</a></li>
                 </ul>

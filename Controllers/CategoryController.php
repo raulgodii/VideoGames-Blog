@@ -73,4 +73,11 @@ class CategoryController{
         $category = $this->Category->getCategoryFromId($category_id);
         return $category[0]["name"];
     }
+
+    public function showEntriesFromCategorie(){
+        $category_id = $_GET['category_id'];
+        $category_name = $_GET['category_name'];
+        $entries = $this->Category->showEntriesFromCategorie($category_id);
+        $this->pages->render("Category/showEntriesFromCategorie", ["entries" => $entries, "category_name" => $category_name]);
+    }
 }

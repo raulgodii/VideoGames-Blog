@@ -58,11 +58,10 @@ class UserRepository
         $last_name = $user->getlast_name();
         $email = $user->getEmail();
         $password = $user->getPassword();
-        $date = 'user';
+        $date = $user->getDate();
 
         try{
             $ins = $this->connection->prepare("INSERT INTO users (id, name, last_name, email, password, date) values (:id, :name, :last_name, :email, :password, :date)");
-
             $ins->bindValue(':id', $id);
             $ins->bindValue(':name', $name, PDO::PARAM_STR);
             $ins->bindValue(':last_name', $last_name, PDO::PARAM_STR);
@@ -124,5 +123,13 @@ class UserRepository
 
     public function close():void{
         $this->connection->close();
+    }
+
+    public function getUserFromId($user_id){
+        $this->connection->query("SELECT name FROM users WHERE id=$user_id");
+        
+        $user_id = $this->connection->extractAll();
+        $this->connection->close();
+        return $user_id;
     }
 }

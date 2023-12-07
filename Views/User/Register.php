@@ -36,7 +36,7 @@ use Utils\Utils;
         </p>
         <p>
             <label>Date of Birth</label>
-            <input type="text" name="data[date]" placeholder="Introduce your birth (dd/mm/yyyy)" value="<?= isset($user) ? $user['date'] : '' ?>" required>
+            <input type="date" name="data[date]" placeholder="Introduce your birth (dd/mm/yyyy)" value="<?= isset($user) ? $user['date'] : '' ?>" required>
         </p>
         <p>
             <label>Password</label>

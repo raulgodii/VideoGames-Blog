@@ -87,4 +87,8 @@ class Category {
     public function getCategoryFromId($category_id){
         return  $this->CategoryRepository->getCategoryFromId($category_id);
     }
+
+    public function showEntriesFromCategorie($category_id){
+        return $this->CategoryRepository->showEntriesFromCategorie($category_id);
+    }
 }

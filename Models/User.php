@@ -105,9 +105,8 @@ class User{
     
     // Valid Format Date (DD/MM/AAAA)
     public static function validDateFormat($date) {
-        $pattern = "/^\d{2}\/\d{2}\/\d{4}$/";
+        $pattern = "/^\d{4}-\d{2}-\d{2}$/";
         return preg_match($pattern, $date);
-    }
-    
+    }    
 
 }

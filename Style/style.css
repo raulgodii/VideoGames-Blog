@@ -250,3 +250,80 @@ main form input[type="submit"]:hover{
     padding: 10px;
     
 }
+
+.entry{
+    background-color: #e1e1e1;
+    margin: 20px 0;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: Prompt;
+    width: 100%;
+    transition: 0.3s;
+
+}
+
+.entry h2{
+    font-family: Bebas Neue;
+}
+
+.entry:hover{
+    transform: scale(1.02);
+}
+
+.entry-dateUser{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    color: #666;
+    font-size: 0.8em;
+}
+
+.showEntries{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.aside{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 20px;
+    background-color: #e1e1e1;
+    padding: 20px;
+    width: 20%;
+}
+
+.aside ul{
+    list-style: none;
+}
+
+.aside li{
+    margin: 20px 10px;
+    transition: 0.3s;
+}
+
+.aside a{
+    color: var(--color2);
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.aside li:hover {
+    transform: scale(1.1);
+}
+
+.entries{
+    width: 80%;
+}
+
+
+
+.aside li:hover a {
+    color: rgb(164, 0, 0);
+}

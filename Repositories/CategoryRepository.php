@@ -42,4 +42,11 @@ class CategoryRepository
         $this->connection->close();
         return $category;
     }
+
+    public function showEntriesFromCategorie($category_id){
+        $this->connection->query("SELECT * FROM entries WHERE category_id=$category_id");
+        $entries = $this->connection->extractAll();
+        $this->connection->close();
+        return $entries;
+    }
 }

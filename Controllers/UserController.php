@@ -94,4 +94,11 @@ class UserController{
 
         header("Location:".BASE_URL);
     }
+
+    public function getUserFromId($user_id){
+        $this->userRepository = new UserRepository();
+        return $this->userRepository->getUserFromId($user_id);
+    }
+
+    
 }

@@ -11,34 +11,60 @@ class UserRepository
 {
     private DataBase $connection;
 
+    /**
+     * UserRepository constructor.
+     */
     function __construct()
     {
         $this->connection = new DataBase();
     }
 
-    public function findAll()
+    /**
+     * Obtiene todos los usuarios.
+     *
+     * @return array
+     */
+    public function findAll(): array
     {
         $this->connection->query("SELECT * FROM contactos");
         return $this->extractAll();
     }
 
-    public function extractAll()
+    /**
+     * Extrae todos los usuarios del resultado de la consulta.
+     *
+     * @return array
+     */
+    public function extractAll(): array
     {
-        $contactos = [];
-        $contactosData = $this->connection->extractAll();
+        $users = [];
+        $usersData = $this->connection->extractAll();
 
-        foreach ($contactosData as $contactoData) {
-            $contactos[] = User::fromArray($contactoData);
+        foreach ($usersData as $userData) {
+            $users[] = User::fromArray($userData);
         }
 
-        return $contactos;
+        return $users;
     }
 
-    private function extractRegister(){
-        return ($Contacto = $this->connection->extractRegister())?User::fromArray($Contacto):null;
+    /**
+     * Extrae un usuario del resultado de la consulta.
+     *
+     * @return mixed|null
+     */
+    private function extractRegister()
+    {
+        return ($user = $this->connection->extractRegister()) ? User::fromArray($user) : null;
     }
 
-    public function read(int $id){
+    /**
+     * Lee un usuario por su ID.
+     *
+     * @param int $id
+     * @return mixed
+     */
+    public function read(int $id)
+    {
         $consulta = "SELECT id, nombre, apellidos, date FROM users WHERE id= :id";
         $stmt = $this->connection->prepare($consulta);
 
@@ -47,20 +73,27 @@ class UserRepository
 
         $stmt->closeCursor();
 
-        $stmt=null;
+        $stmt = null;
 
         return $this->extractRegister();
     }
 
-    public function registerUser($user): bool {
-        $id = NULL;
-        $name = $user->getname();
-        $last_name = $user->getlast_name();
+    /**
+     * Registra un nuevo usuario.
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function registerUser(User $user): bool
+    {
+        $id = null;
+        $name = $user->getName();
+        $last_name = $user->getLast_name();
         $email = $user->getEmail();
         $password = $user->getPassword();
         $date = $user->getDate();
 
-        try{
+        try {
             $ins = $this->connection->prepare("INSERT INTO users (id, name, last_name, email, password, date) values (:id, :name, :last_name, :email, :password, :date)");
             $ins->bindValue(':id', $id);
             $ins->bindValue(':name', $name, PDO::PARAM_STR);
@@ -70,93 +103,132 @@ class UserRepository
             $ins->bindValue(':date', $date, PDO::PARAM_STR);
 
             $ins->execute();
-            
+
             $result = true;
-        } catch(PDOException $err){
+        } catch (PDOException $err) {
             $result = false;
         }
 
         return $result;
     }
 
-    public function buscaMail($email): bool|object{
-        
-        try{
+    /**
+     * Busca un usuario por su correo electrónico.
+     *
+     * @param string $email
+     * @return bool|object
+     */
+    public function buscaMail(string $email): bool|object
+    {
+        try {
             $cons = $this->connection->prepare("SELECT * FROM users WHERE email = :email");
             $cons->bindValue(':email', $email, PDO::PARAM_STR);
             $cons->execute();
-            if($cons && $cons->rowCount() == 1){
-                
+            if ($cons && $cons->rowCount() == 1) {
+
                 $result = $cons->fetch(PDO::FETCH_OBJ);
-            }else{
-                
+            } else {
+
                 $result = false;
             }
-            
-        } catch(PDOException $err){
+
+        } catch (PDOException $err) {
             $result = false;
         }
 
         return $result;
     }
 
-    public function login($user): bool|object {
+    /**
+     * Inicia sesión de usuario.
+     *
+     * @param User $user
+     * @return bool|object
+     */
+    public function login(User $user): bool|object
+    {
         $result = false;
         $email = $user->getEmail();
         $password = $user->getPassword();
 
         $usuario = $this->buscaMail($email);
 
-        if($usuario !== false){
+        if ($usuario !== false) {
             $verify = password_verify($password, $usuario->password);
 
-            if($verify){
+            if ($verify) {
                 $result = $usuario;
-            }else{
+            } else {
                 $result = false;
             }
-        }else{
+        } else {
             $result = false;
         }
         return $result;
     }
 
-    public function updateLogin($user): bool|object {
+    /**
+     * Actualiza la sesión de usuario.
+     *
+     * @param User $user
+     * @return bool|object
+     */
+    public function updateLogin(User $user): bool|object
+    {
         $result = false;
         $email = $user->getEmail();
         $password = $user->getPassword();
 
         $usuario = $this->buscaMail($email);
 
-        if($usuario !== false){
+        if ($usuario !== false) {
 
             $result = $usuario;
 
-        }else{
+        } else {
             $result = false;
         }
         return $result;
     }
 
-    public function close():void{
+    /**
+     * Cierra la conexión.
+     */
+    public function close(): void
+    {
         $this->connection->close();
     }
 
-    public function getUserFromId($user_id){
+    /**
+     * Obtiene un usuario por su ID.
+     *
+     * @param int $user_id
+     * @return mixed
+     */
+    public function getUserFromId(int $user_id)
+    {
         $this->connection->query("SELECT name FROM users WHERE id=$user_id");
-        
-        $user_id = $this->connection->extractAll();
+
+        $user = $this->connection->extractAll();
         $this->connection->close();
-        return $user_id;
+
+        return $user;
     }
 
-    public function updateUser($updateUser){
+    /**
+     * Actualiza la información del usuario.
+     *
+     * @param array $updateUser
+     * @return bool
+     */
+    public function updateUser(array $updateUser): bool
+    {
         $result = true;
-        try{
+        try {
             $this->connection->query("UPDATE users SET name='{$updateUser['name']}', last_name='{$updateUser['last_name']}', email='{$updateUser['email']}', date='{$updateUser['date']}' WHERE id='{$updateUser['id']}'");
             $this->connection->close();
-            
-        } catch(PDOException $err){
+
+        } catch (PDOException $err) {
             $result = false;
         }
 

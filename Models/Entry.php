@@ -1,85 +1,125 @@
 <?php
+
 namespace Models;
+
 use Repositories\EntryRepository;
 
+/**
+ * Clase que representa la entidad de entrada (Entry).
+ */
 class Entry {
     private EntryRepository $EntryRepository;
-    public function __construct(){
+
+    /**
+     * Constructor de la clase Entry.
+     */
+    public function __construct() {
         $this->EntryRepository = new EntryRepository();
     }
 
-    public function getAll(): ?array{
-        return  $this->EntryRepository->getAll();
+    /**
+     * Obtiene todas las entradas.
+     *
+     * @return array|null Arreglo de entradas o null si no hay entradas.
+     */
+    public function getAll(): ?array {
+        return $this->EntryRepository->getAll();
     }
-    
-    public function saveEntry($newEntry):void{
+
+    /**
+     * Guarda una nueva entrada.
+     *
+     * @param array $newEntry Nueva entrada a guardar.
+     */
+    public function saveEntry(array $newEntry): void {
         $this->EntryRepository->saveEntry($newEntry);
     }
 
-    public function deleteEntry($idEntry){
+    /**
+     * Elimina una entrada por su ID.
+     *
+     * @param mixed $idEntry ID de la entrada a eliminar.
+     */
+    public function deleteEntry($idEntry): void {
         $this->EntryRepository->deleteEntry($idEntry);
     }
 
-    public function updateEntry($updateEntry){
+    /**
+     * Actualiza una entrada.
+     *
+     * @param array $updateEntry Datos actualizados de la entrada.
+     */
+    public function updateEntry(array $updateEntry): void {
         $this->EntryRepository->updateEntry($updateEntry);
     }
 
-    public function validateEntry($newEntry) {
-        // Validate title
+    /**
+     * Valida una nueva entrada.
+     *
+     * @param array $newEntry Datos de la nueva entrada a validar.
+     * @return bool True si la entrada es válida, false en caso contrario.
+     */
+    public function validateEntry(array $newEntry): bool {
+        // Validar título
         if (!isset($newEntry['title']) || !is_string($newEntry['title'])) {
             return false;
         }
-    
+
         $trimmedTitle = trim($newEntry['title']);
-    
-        // Valid Length for title
+
+        // Longitud válida para el título
         $minTitleLength = 3;
         $maxTitleLength = 100;
         if (strlen($trimmedTitle) < $minTitleLength || strlen($trimmedTitle) > $maxTitleLength) {
             return false; 
         }
-    
-        // Valid Characters for title
+
+        // Caracteres válidos para el título
         if (preg_match('/[\'";]/', $trimmedTitle)) {
             return false;
         }
-    
-        // Validate description
+
+        // Validar descripción
         if (!isset($newEntry['description']) || !is_string($newEntry['description'])) {
             return false;
         }
-    
+
         $trimmedDescription = trim($newEntry['description']);
-    
-        // Valid Length for description
+
+        // Longitud válida para la descripción
         $minDescriptionLength = 5;
         $maxDescriptionLength = 500; 
         if (strlen($trimmedDescription) < $minDescriptionLength || strlen($trimmedDescription) > $maxDescriptionLength) {
             return false; 
         }
-    
-        // Valid Characters for description
+
+        // Caracteres válidos para la descripción
         if (preg_match('/[\'";]/', $trimmedDescription)) {
             return false;
         }
-    
-        // Validate category_id
+
+        // Validar category_id
         if (!isset($newEntry['category_id']) || !is_numeric($newEntry['category_id'])) {
             return false;
         }
-    
-        return true;  // All fields are valid
-    }    
 
-    public function sanitizeEntry(array $newEntry) {
+        return true;  // Todos los campos son válidos
+    }
+
+    /**
+     * Sanitiza los datos de una entrada.
+     *
+     * @param array $newEntry Datos de la entrada a sanitizar.
+     * @return array Datos de la entrada sanitizados.
+     */
+    public function sanitizeEntry(array $newEntry): array {
         $sanitizedEntry = [];
-    
+
         foreach ($newEntry as $key => $value) {
-            // Sanitize each field using htmlspecialchars
+            // Sanitiza cada campo utilizando htmlspecialchars
             $sanitizedEntry[$key] = htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
         }
-    
+
         return $sanitizedEntry;
     }
-    
 }

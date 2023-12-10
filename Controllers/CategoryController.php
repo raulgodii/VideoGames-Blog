@@ -1,30 +1,48 @@
 <?php
 namespace Controllers;
+
 use Models\Category;
 use Lib\Pages;
 
-class CategoryController{
+/**
+ * Controlador para la gestión de categorías en el blog de videojuegos.
+ */
+class CategoryController {
     private Pages $pages;
     private Category $Category;
 
-    public function __construct(){
+    /**
+     * Constructor de la clase CategoryController.
+     */
+    public function __construct() {
         $this->pages = new Pages();
         $this->Category = new Category();
     }
 
-    public function manageCategories(): void{
+    /**
+     * Muestra la página de gestión de categorías.
+     */
+    public function manageCategories(): void {
         $this->pages->render("Category/manageCategories");
     }
 
-    public function getAll(): ?array{
-        return  $this->Category->getAll();
+    /**
+     * Obtiene todas las categorías.
+     *
+     * @return array|null Arreglo de categorías o null si no hay categorías.
+     */
+    public function getAll(): ?array {
+        return $this->Category->getAll();
     }
 
-    public function saveCategory():void {
+    /**
+     * Guarda una nueva categoría.
+     */
+    public function saveCategory(): void {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $newCategory = $_POST['newCategory'];
 
-            if($this->Category->validCategory($newCategory)){
+            if ($this->Category->validCategory($newCategory)) {
                 $this->Category = new Category();
                 $newCategory = $this->Category->sanitizeCategory($newCategory);
                 $this->Category->saveCategory($newCategory);
@@ -37,6 +55,9 @@ class CategoryController{
         }
     }
 
+    /**
+     * Elimina una categoría.
+     */
     public function deleteCategory(): void {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $idCategory = $_POST['idCategory'];
@@ -45,6 +66,9 @@ class CategoryController{
         }
     }
 
+    /**
+     * Muestra la página de edición de categorías.
+     */
     public function editCategory(): void {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $idCategory = $_POST['idCategory'];
@@ -52,12 +76,15 @@ class CategoryController{
         }
     }
 
+    /**
+     * Edita una categoría existente.
+     */
     public function editedCategory(): void {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $idCategory = $_POST['idCategory'];
             $nameCategory = $_POST['nameCategory'];
 
-            if($this->Category->validCategory($nameCategory)){
+            if ($this->Category->validCategory($nameCategory)) {
                 $this->Category = new Category();
                 $newCategory = $this->Category->sanitizeCategory($nameCategory);
                 $this->Category->editCategory($idCategory, $nameCategory);
@@ -68,20 +95,32 @@ class CategoryController{
         }
     }
 
-    public function getCategoryFromId($category_id){
+    /**
+     * Obtiene el nombre de la categoría a partir de su ID.
+     *
+     * @param int $category_id ID de la categoría.
+     * @return string Nombre de la categoría.
+     */
+    public function getCategoryFromId(int $category_id): string {
         $this->Category = new Category();
         $category = $this->Category->getCategoryFromId($category_id);
         return $category[0]["name"];
     }
 
-    public function showEntriesFromCategorie(){
+    /**
+     * Muestra las entradas asociadas a una categoría.
+     */
+    public function showEntriesFromCategorie(): void {
         $category_id = $_GET['category_id'];
         $category_name = $_GET['category_name'];
         $entries = $this->Category->showEntriesFromCategorie($category_id);
         $this->pages->render("Category/showEntriesFromCategorie", ["entries" => $entries, "category_name" => $category_name]);
     }
 
-    public function showLastEntries(){
+    /**
+     * Muestra las últimas entradas en el blog.
+     */
+    public function showLastEntries(): void {
         $entries = $this->Category->showLastEntries();
         $this->pages->render("Category/showLastEntries", ["entries" => $entries]);
     }

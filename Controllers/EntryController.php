@@ -1,30 +1,48 @@
 <?php
 namespace Controllers;
+
 use Models\Entry;
 use Lib\Pages;
 
-class EntryController{
+/**
+ * Controlador para la gestión de entradas en el blog de videojuegos.
+ */
+class EntryController {
     private Pages $pages;
     private Entry $Entry;
 
-    public function __construct(){
+    /**
+     * Constructor de la clase EntryController.
+     */
+    public function __construct() {
         $this->pages = new Pages();
         $this->Entry = new Entry();
     }
 
-    public function manageEntries(): void{
+    /**
+     * Muestra la página de gestión de entradas.
+     */
+    public function manageEntries(): void {
         $this->pages->render("Entry/manageEntries");
     }
 
-    public function getAll(): ?array{
-        return  $this->Entry->getAll();
+    /**
+     * Obtiene todas las entradas.
+     *
+     * @return array|null Arreglo de entradas o null si no hay entradas.
+     */
+    public function getAll(): ?array {
+        return $this->Entry->getAll();
     }
 
-    public function saveEntry():void {
+    /**
+     * Guarda una nueva entrada.
+     */
+    public function saveEntry(): void {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $newEntry = $_POST['newEntry'];
 
-            if($this->Entry->validateEntry($newEntry)){
+            if ($this->Entry->validateEntry($newEntry)) {
                 $this->Entry = new Entry();
                 $newEntry = $this->Entry->sanitizeEntry($newEntry);
                 $this->Entry->saveEntry($newEntry);
@@ -37,6 +55,9 @@ class EntryController{
         }
     }
 
+    /**
+     * Elimina una entrada.
+     */
     public function deleteEntry(): void {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $idEntry = $_POST['idEntry'];
@@ -45,6 +66,9 @@ class EntryController{
         }
     }
 
+    /**
+     * Muestra la página de edición de entradas.
+     */
     public function editEntry(): void {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $editEntry = $_POST['editEntry'];
@@ -52,12 +76,14 @@ class EntryController{
         }
     }
 
+    /**
+     * Actualiza una entrada existente.
+     */
     public function updateEntry(): void {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            
             $updateEntry = $_POST['updateEntry'];
 
-            if($this->Entry->validateEntry($updateEntry)){
+            if ($this->Entry->validateEntry($updateEntry)) {
                 $this->Entry = new Entry();
                 $newEntry = $this->Entry->sanitizeEntry($updateEntry);
                 $this->Entry->updateEntry($newEntry);
@@ -68,6 +94,9 @@ class EntryController{
         }
     }
 
+    /**
+     * Muestra la página para agregar una nueva entrada.
+     */
     public function addEntry(): void {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->pages->render("Entry/addEntry");

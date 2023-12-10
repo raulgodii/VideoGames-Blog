@@ -1,9 +1,16 @@
 <?php
 
 namespace Controllers;
-    class ErrorController{
-        public static function show_error404(){
-            echo "<h1>ERROR 404: The page you are looking for does not exist.</h1>";
-        }
+
+/**
+ * Controlador para manejar errores en la aplicación.
+ */
+class ErrorController {
+    /**
+     * Muestra el error 404 cuando la página no existe.
+     */
+    public static function show_error404(): void {
+        echo "<h1>ERROR 404: La página que estás buscando no existe.</h1>";
     }
+}
 ?>
